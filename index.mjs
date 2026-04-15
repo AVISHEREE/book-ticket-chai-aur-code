@@ -33,14 +33,10 @@ const userSchema = z.object({
 // If you pick one connection out of the pool and release it
 // the pooler will keep that connection open for sometime to other clients to reuse
 const pool = new pg.Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  max: 20,
-  connectionTimeoutMillis: 0,
-  idleTimeoutMillis: 0,
+  connectionString: process.env.DATABASE_URL,//use neon db connection string here
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 const registerUserController = async (req,res) =>{
